@@ -8,7 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class GUI extends JPanel implements ActionListener{
+public class GuiCreation extends JPanel implements ActionListener{
     //all GUI panels in Java need a unique identifier for the windowing system
     private static final long serialVersionUID=123456789;
     //a text entry box to store the user's input sequence
@@ -22,7 +22,7 @@ public class GUI extends JPanel implements ActionListener{
     /**
      *     let's create a constructor that sets up our GUI when the application is launched
      */
-    public GUI(){
+    public GuiCreation(){
         //create a layout within our MyFirstGUI JPanel
         //note: the layout itself is going to be contained within another JPanel
         //JPanel controlsArea = new JPanel(new GridLayout(2,2));
@@ -69,5 +69,31 @@ public class GUI extends JPanel implements ActionListener{
         controlsArea.add(searchResult);
 
     }
+    
+    /**
+     * a getter to return the serial version id
+     * @return the serial version id
+     */
+    public long getSerialVersionUID(){
+        return serialVersionUID;
+    }
 
+    /**
+     * this method is defined in ActionListener (which MyFirstGUI implements)
+     it receives an ActionEvent e object that we can inspect to determine what the action was
+     * @param e the even that occurred
+     */
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        //invent an ActionCommand String - make sure that out searchButton uses the same String!
+        if(e.getActionCommand() == "search_button_was_pressed"){
+            System.out.println("button was clicked!");
+
+            //demonstrate getting the text inside one of the JTextAreas
+            String input = inputSequence.getText();
+            //demonstrate how to change the value of a label
+            //note: the actual search is left to you as an exercise...
+            searchResult.setText("input text was: " + input);
+        }
+    }
 }

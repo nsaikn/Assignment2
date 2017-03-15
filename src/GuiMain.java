@@ -40,12 +40,12 @@ public class GuiMain {
         //we have to specify what happens to our program when the user closes the window
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         //instantiate and set up the content pane (JPanel - MyFirstGUI)
-        JComponent myPanel = new GUI();
+        JComponent myPanel = new GuiCreation();
         //make the content pane opaque (visible to the user)
         myPanel.setOpaque(true);
         //associate myPanel (has the content) with the JFrame container
         frame.setContentPane(myPanel);
-
+        
         //make the GUI visible
         frame.pack();
         frame.setVisible(true);
