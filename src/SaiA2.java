@@ -179,7 +179,10 @@ public class SaiA2 extends JFrame {
                 System.out.println("Valid sequence");
                 if (caseUpper.isSelected()) {
                     input = input.toUpperCase();
+                }else {
+                    input = input.toLowerCase();
                 }
+
                 cPerLine = Integer.parseInt(lines.getSelectedItem().toString());
                 for (int i = 0; i < input.length(); i += cPerLine) {
                     if (spacing.isSelected()) {
@@ -208,6 +211,25 @@ public class SaiA2 extends JFrame {
                 outRNA.setText(sequenceOut.toString());
 
                 // add the letter counter and display the results here
+                int numA, numT, numC, numG;
+
+                for(char c : input.toCharArray()){
+                    if(c == 'a' | c == 'A'){
+                        numA++;
+                    }
+                    if(c == 't' | c == 'T'){
+                        numT++;
+                    }
+                    if(c == 'c' | c == 'C'){
+                        numC++;
+                    }
+                    if(c == 'g' | c == 'G'){
+                        numG++;
+                    }
+                    sequenceOut.setLength(0);
+                    sequenceOut.append("A: " + numA + "\nT: " + numT + "\nC: " + numC + "\nG: " + numG );
+                    outStats.setText(sequenceOut.toString());
+                }
             } else {
                 System.out.println("Invalid sequence");
                 JOptionPane.showMessageDialog(null, "Invalid Sequence, make sure it only contains A,T, C and G.");
@@ -219,7 +241,14 @@ public class SaiA2 extends JFrame {
     private class resetActionListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
-            // set the default text for all the fields
+            // make a popup with logic
+            inRNA.setText("");
+            outRNA.setText("");
+            outStats.setText("");
+            caseUpper.setSelected(false);
+            caseLower.setSelected(true);
+            spacing.setSelected(false);
+            lines.setSelectedIndex(2);
         }
     }
 }
