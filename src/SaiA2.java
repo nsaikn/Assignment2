@@ -8,7 +8,7 @@ import java.util.regex.*;
 /**
  * Created by Sai on 26/03/2017.
  */
-public class SaiA2 extends JFrame{
+public class SaiA2 extends JFrame {
 
     private JPanel panel;
     private JTextArea inRNA, outRNA, outStats;
@@ -21,8 +21,7 @@ public class SaiA2 extends JFrame{
     private JComboBox lines;
 
 
-
-    public SaiA2(){
+    public SaiA2() {
         CreateView();
         setTitle("Java Assignment");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -31,7 +30,7 @@ public class SaiA2 extends JFrame{
         setLocationRelativeTo(null);
     }
 
-    public void CreateView(){
+    public void CreateView() {
         panel = new JPanel(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         getContentPane().add(panel);
@@ -42,10 +41,10 @@ public class SaiA2 extends JFrame{
         c.gridheight = 1;
         c.gridwidth = 1;
         c.anchor = GridBagConstraints.LINE_START;
-        c.insets = new Insets(10,10,10,10);
+        c.insets = new Insets(10, 10, 10, 10);
 
         inRNA = new JTextArea();
-        inRNA.setPreferredSize(new Dimension( 200, 50));
+        inRNA.setPreferredSize(new Dimension(200, 50));
 
         outRNA = new JTextArea();
         outRNA.setPreferredSize(new Dimension(600, 50));
@@ -154,11 +153,14 @@ public class SaiA2 extends JFrame{
         panel.add(outStats, c);
 
         // Aciton listeners for the process and reset buttons
-         process.addActionListener(
-                 new processActionListener());
+        process.addActionListener(
+                new processActionListener());
+        reset.addActionListener(
+                new resetActionListener());
     }
 
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {
@@ -169,46 +171,55 @@ public class SaiA2 extends JFrame{
 
     private class processActionListener implements ActionListener {
         @Override
-        public void actionPerformed(ActionEvent e){
+        public void actionPerformed(ActionEvent e) {
             int cPerLine;
             StringBuilder sequenceOut = new StringBuilder("");
             String input = inRNA.getText();
-            if(input.matches("^[atcgATCG]+$")){
+            if (input.matches("^[atcgATCG]+$")) {
                 System.out.println("Valid sequence");
-                if (caseUpper.isSelected()){
+                if (caseUpper.isSelected()) {
                     input = input.toUpperCase();
                 }
                 cPerLine = Integer.parseInt(lines.getSelectedItem().toString());
-                for (int i = 0; i < input.length(); i+=cPerLine){
+                for (int i = 0; i < input.length(); i += cPerLine) {
                     if (spacing.isSelected()) {
-                        for (int m = i; m - i < cPerLine && m < input.length(); m+=10) {
+                        for (int m = i; m - i < cPerLine && m < input.length(); m += 10) {
                             if (input.length() < m + 10) {
                                 // print rest of input
                                 sequenceOut.append(input.substring(m));
 
                             } else {
                                 // print subsets of 10 out
-                                sequenceOut.append(input.substring( m, m + 10));
+                                sequenceOut.append(input.substring(m, m + 10));
                                 sequenceOut.append(" ");
                             }
 
                         }
-                    }else{
+                    } else {
                         //print subsets of cPerLine
                         if (i + cPerLine < input.length()) {
                             sequenceOut.append(input.substring(i, i + cPerLine));
-                        }else{
+                        } else {
                             sequenceOut.append(input.substring(i));
                         }
                     }
                     sequenceOut.append("\n");
                 }
                 outRNA.setText(sequenceOut.toString());
-            }else{
+
+                // add the letter counter and display the results here
+            } else {
                 System.out.println("Invalid sequence");
-                JOptionPane.showMessageDialog( null, "Invalid Sequence, make sure it only contains A,T, C and G.");
+                JOptionPane.showMessageDialog(null, "Invalid Sequence, make sure it only contains A,T, C and G.");
             }
 
+        }
+    }
+
+    private class resetActionListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            // set the default text for all the fields
         }
     }
 }
